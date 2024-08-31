@@ -43,23 +43,23 @@ app.post('/register', async (req, res) =>{
 })
 
 app.post('/login', async (req, res) => {
-    const {email, password} = req.body;
-    const userDoc = await User.findOne({email})
+    const { email, password } = req.body;
+    const userDoc = await User.findOne({ email });
     if (userDoc) {
-        const passOk = bcrypt.compareSync(password, userDoc.password)
-        if (passOk){
-            jwt.sign({email:userDoc.email, id: userDoc._id}, jwtSecret, {}, (err, token) => {
+        const passOk = bcrypt.compareSync(password, userDoc.password);
+        if (passOk) {
+            jwt.sign({ email: userDoc.email, id: userDoc._id }, jwtSecret, {}, (err, token) => {
                 if (err) throw err;
-                res.cookie('token', token).json(userDoc)
-            })    
-        } else{
-            res.status(422).json('password not ok')
+                res.cookie('token', token).json(userDoc);
+            });
+        } else {
+            res.status(401).json('Incorrect password');
         }
-    }else{
-        res.json('not found')
+    } else {
+        res.status(404).json('User not found');
     }
+});
 
-})
 app.get('/profile', (req, res) => {
     const {token} = req.cookies
     if (token) {

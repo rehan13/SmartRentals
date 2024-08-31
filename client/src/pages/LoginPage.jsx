@@ -54,7 +54,7 @@ export default function LoginPage() {
                         onChange={ev => setPassword(ev.target.value)}
                     />
                     <button className="primary">Login</button>
-                    {error && <div className="text-red-500 text-center mt-2">{error}</div>} {/* Display error message */}
+                    {error && <div className="text-red-500 text-center mt-2">{error}</div>}
                     <div className="text-center py-2 text-gray-500">
                         Don't have an account yet? <Link className="underline text-black" to={'/register'}>Register Now</Link>
                     </div>

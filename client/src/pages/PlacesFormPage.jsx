@@ -13,12 +13,12 @@ export default function PlacesFormPage(){
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [description, setDescription] = useState('');
     const [perks, setPerks] = useState([]);
-    const [moreInfo, setMoreInfo] = useState('');
+    const [extraInfo, setExtraInfo] = useState('');
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
-    const [maxGuest, setMaxGuest] = useState('');
+    const [maxGuests, setMaxGuest] = useState('');
     const [redirect, setRedirect] = useState(false)
-
+    const [price, setPrice] = useState(100)
     useEffect(()=>{
         if (!id) {
             return
@@ -31,10 +31,11 @@ export default function PlacesFormPage(){
             setAddedPhotos(data.photos)
             setDescription(data.description)
             setPerks(data.perks)
-            setMoreInfo(data.moreInfo)
+            setExtraInfo(data.extraInfo)
             setCheckIn(data.checkIn)
             setCheckOut(data.checkOut)
-            setMaxGuest(data.maxGuest)
+            setMaxGuest(data.maxGuests)
+            setPrice(data.price)
         })
     }, [id])
 
@@ -46,13 +47,13 @@ export default function PlacesFormPage(){
 
     async function savePlace(ev){
         ev.preventDefault()
-        const placeData = {title, address, addedPhotos, description, perks, moreInfo, checkIn, checkOut, maxGuest}
+        const placeData = {title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, maxGuests, price}
         if(id){ 
             await axios.put('/places', {id, ...placeData})
             setRedirect(true)
             
         } else{
-        await axios.post('/places', FmoplaceData)
+        await axios.post('/places', placeData)
         setRedirect(true)
         }
     }
@@ -94,11 +95,11 @@ export default function PlacesFormPage(){
             {inputHeader("More Info")}
             <textarea
                 placeholder="House Rules, Access Areas, Restrictions etc."
-                value={moreInfo}
-                onChange={ev => setMoreInfo(ev.target.value)}
+                value={extraInfo}
+                onChange={ev => setExtraInfo(ev.target.value)}
             />
             {inputHeader("Check-In, Check-Out and Max-Guests")}
-            <div className="grid gap-2 sm:grid-cols-3">
+            <div className="grid gap-2 grid-cols-2 md:grid-cols-4 ">
                 <div>
                     <h3 className="mt-2 mb-1">Check-In</h3>
                     <input
@@ -122,8 +123,17 @@ export default function PlacesFormPage(){
                     <input
                         type="number"
                         placeholder="For Example: 5"
-                        value={maxGuest}
+                        value={maxGuests}
                         onChange={ev => setMaxGuest(ev.target.value)}
+                    />
+                </div>
+                <div>
+                    <h3 className="mt-2 mb-1">Price Per Night</h3>
+                    <input
+                        type="number"
+                        placeholder="For Example: 5"
+                        value={price}
+                        onChange={ev => setPrice(ev.target.value)}
                     />
                 </div>
             </div>

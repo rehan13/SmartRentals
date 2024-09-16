@@ -112,14 +112,14 @@ app.post('/places', (req, res) =>{
     const {token} = req.cookies
     const {
         title,address,addedPhotos,description,
-        perks,extraInfo,checkIn,checkOut,maxGuests,
+        perks,extraInfo,checkIn,checkOut,maxGuests,price,
       } = req.body; 
     jwt.verify(token, jwtSecret, {}, async (err, userData) =>{
         if(err) throw err;
         const placeDoc = await Place.create({
-            owner: userData.id,
+            owner: userData.id,price,
             title,address, photos: addedPhotos,description,
-            perks,extraInfo,checkIn,checkOut,maxGuests
+            perks,extraInfo,checkIn,checkOut,maxGuests,
     
         })
         res.json(placeDoc)
@@ -144,7 +144,7 @@ app.put('/places', async (req, res) => {
     const {token} = req.cookies
     const {
         id, title,address,addedPhotos,description,
-        perks,extraInfo,checkIn,checkOut,maxGuests,
+        perks,extraInfo,checkIn,checkOut,maxGuests,price,
     } = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData) =>{
         const placeDoc = await Place.findById(id)
@@ -152,7 +152,7 @@ app.put('/places', async (req, res) => {
             placeDoc.set(
                 {
                     title,address, photos: addedPhotos,description,
-                    perks,extraInfo,checkIn,checkOut,maxGuests
+                    perks,extraInfo,checkIn,checkOut,maxGuests,price,
             
                 }
             )
@@ -161,6 +161,10 @@ app.put('/places', async (req, res) => {
         }
     })
     
+})
+
+app.get('/places', async (req, res) => {
+    res.json (await Place.find())
 })
 
 app.listen(4000)

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "./Image";
 
 export default function PlaceGallery({place}){
     const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -31,11 +32,10 @@ export default function PlaceGallery({place}){
               {place?.photos?.length > 0 &&
                 place.photos.map((photo, index) => (
                   <div key={index} className="w-full h-screen">
-                    <img
+                    <Image
                       className="w-full h-full object-cover"
-                      src={'http://localhost:4000/uploads/' + photo}
-                      alt={`Photo ${index}`}
-                    />
+                      src={photo}
+                   />
                   </div>
                 ))}
             </div>
@@ -48,10 +48,10 @@ export default function PlaceGallery({place}){
           <div>
             {place.photos?.[0] && (
               <div>
-                <img
+                <Image
                   onClick={() => setShowAllPhotos(true)}
                   className="aspect-square object-cover cursor-pointer"
-                  src={'http://localhost:4000/uploads/' + place.photos[0]}
+                  src={place.photos[0]}
                   alt=""
                 />
               </div>
@@ -59,19 +59,19 @@ export default function PlaceGallery({place}){
           </div>
           <div className="grid">
             {place.photos?.[1] && (
-              <img
+              <Image
                 onClick={() => setShowAllPhotos(true)}
                 className="aspect-square object-cover cursor-pointer"
-                src={'http://localhost:4000/uploads/' + place.photos[1]}
+                src={place.photos[1]}
                 alt=""
               />
             )}
             <div className="overflow-hidden">
               {place.photos?.[2] && (
-                <img
+                <Image
                   onClick={() => setShowAllPhotos(true)}
                   className="aspect-square object-cover cursor-pointer relative top-2"
-                  src={'http://localhost:4000/uploads/' + place.photos[2]}
+                  src={place.photos[2]}
                   alt=""
                 />
               )}

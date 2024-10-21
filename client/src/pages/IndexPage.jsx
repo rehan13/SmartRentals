@@ -1,9 +1,3 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import Image from "../Image"
-import Header from "../Header"  
-
 export default function IndexPage() {
     const [places, setPlaces] = useState([]);  
     const [filteredPlaces, setFilteredPlaces] = useState([]);  

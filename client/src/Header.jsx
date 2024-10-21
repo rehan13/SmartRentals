@@ -25,7 +25,7 @@ export default function Header({ onSearch }) {
           type="text"
           placeholder="Search city..."
           className="border-none outline-none flex-grow"
-          onChange={(e) => onSearch(e.target.value)}
+          onChange={(e) => onSearch && onSearch(e.target.value)} 
         />
       </div>
 

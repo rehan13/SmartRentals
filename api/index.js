@@ -236,22 +236,4 @@ app.get('/api/bookings', async (req, res) => {
     res.json( await Booking.find({user:userData.id}).populate('place'))
 })
 
-app.get('/api/places', async (req, res) => {
-    mongoose.connect(process.env.MONGO_URL);
-    
-    const { city } = req.query;
-    
-    try {
-        let places;
-        if (city) {
-            places = await Place.find({ address: new RegExp(city, 'i') });
-        } else {
-            places = await Place.find();
-        }
-        res.json(places);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching places", error });
-    }
-});
-
 app.listen(4000)

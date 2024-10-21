@@ -24,7 +24,6 @@ export default function IndexPage() {
 
     return (
         <div>
-            {/* Header removed from here */}
             <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredPlaces.length > 0 && filteredPlaces.map(place => (
                     <Link to={'/place/' + place._id} key={place._id}>
